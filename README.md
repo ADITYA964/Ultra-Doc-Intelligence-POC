@@ -30,7 +30,7 @@ graph TD
     
     F[💬 Question] --> G[🔍 Similarity Search<br/>Top-5 chunks]
     G --> H[⚖️ Confidence > 0.7?]
-    H -->|Yes| I[🤖 Gemini 1.5 Flash<br/>RAG Generation]
+    H -->|Yes| I[🤖 gemini-3-flash-preview<br/>RAG Generation]
     H -->|No| J[❌ Not found<br/>in document]
     I --> K[📊 Answer + Sources<br/>+ Confidence Score]
     
