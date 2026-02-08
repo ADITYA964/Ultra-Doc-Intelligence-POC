@@ -51,7 +51,7 @@ graph TD
 ```bash
 git clone <your-repo>
 cd ultra-doc-intelligence
-pip install -r requirements.txt  # ~1.2GB first time
+pip install -r requirements.txt 
 ```
 
 ### 2. Configure API Key
