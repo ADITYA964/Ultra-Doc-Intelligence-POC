@@ -220,17 +220,6 @@ Guardrail: If Top-1 similarity < 0.7 → "Not found in document"
 
 ---
 
-## 🎯 Submission Package
-
-```
-✅ GitHub repository (complete code)
-✅ Hosted Gradio UI link (https://xxxx.gradio.live)
-✅ Local runnable (pip install -r requirements.txt)
-✅ README (this file)
-✅ Architecture diagram
-✅ Failure cases documented
-```
-
 ---
 
 ## 🚀 Deploy to Production
@@ -247,12 +236,3 @@ CMD ["sh", "-c", "uvicorn app.api.endpoints:app --host 0.0.0.0 --port 8000 & cd 
 ```
 
 ---
-
-
-## 🤝 Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request.
-
-## 📧 Contact
-
-For questions or support, please open an issue on GitHub.
