@@ -1,6 +1,6 @@
 import gradio as gr
 import requests
-import json
+import json, re
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 API_BASE = "http://localhost:8000"
@@ -47,7 +47,7 @@ class GradioDocIntelligence:
         try:
             response = requests.post(f"{API_BASE}/ask", json={
                 "question": question, "document_id": doc_id
-            }, timeout=30)
+            }, timeout=2000)
             
             if response.status_code == 200:
                 result = response.json()
@@ -62,14 +62,15 @@ class GradioDocIntelligence:
                     # Apply Regex highlighting for specific logistics terms
                     for kw in keywords:
                         # This regex finds the keyword and the text immediately following it until a newline or significant gap
-                        content = re.sub(f"({kw}.*?)(?=\\n|$)", r"<mark style='background: #ffeb3b; padding: 2px; font-weight: bold;'>\1</mark>", content, flags=re.IGNORECASE)
-
+                        # content = re.sub(f"({kw}.*?)(?=\\n|$)", r"<mark style='background: #ffeb3b; padding: 2px; font-weight: bold;'>\1</mark>", content, flags=re.IGNORECASE)
+                        content = re.sub(f"({re.escape(kw)}.*?)(?=\\n|[:;.,!?]|$)", r"<mark style='background: #4fc3f7; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;'>\1</mark>", content, flags=re.IGNORECASE)
+                        
                     sources_html += f"""
                     <div style="margin: 10px 0; padding: 12px; background-color: #f0f7ff; border-left: 5px solid #007bff; border-radius: 4px;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <strong style="color: #0056b3;">Chunk {source.get('chunk_index', 'N/A')}</strong>
+                            <strong style="color: #0056b3;">Chunk {source.get('id', 'N/A')+1}</strong>
                             <span style="background: #007bff; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.8em;">
-                                Similarity: {source.get('similarity', 0):.2f}
+                                Similarity: {source.get('score', 0):.2f}
                             </span>
                         </div>
                         <div style="color: #333; font-family: 'Courier New', monospace; font-size: 0.95em; line-height: 1.5; background: #ffffff; padding: 10px; border: 1px solid #d1d9e0; border-radius: 4px;">
@@ -95,7 +96,7 @@ class GradioDocIntelligence:
         if not doc_id:
             return "Upload document first", gr.update(visible=False)
         try:
-            response = requests.post(f"{API_BASE}/extract", json={"document_id": doc_id}, timeout=30)
+            response = requests.post(f"{API_BASE}/extract", json={"document_id": doc_id}, timeout=2000)
             if response.status_code == 200:
                 # Returns formatted JSON string for display
                 return f"```json\n{json.dumps(response.json(), indent=2)}\n```", gr.update(visible=True)
