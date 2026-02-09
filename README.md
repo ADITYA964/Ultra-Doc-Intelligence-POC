@@ -29,7 +29,7 @@ graph TD
     D --> E[🗄️ ChromaDB Vector Store]
     
     F[💬 Question] --> G[🔍 Similarity Search<br/>Top-5 chunks]
-    G --> H[⚖️ Confidence > 0.7?]
+    G --> H[⚖️ Confidence > 1.0?]
     H -->|Yes| I[🤖 gemini-3-flash-preview<br/>RAG Generation]
     H -->|No| J[❌ Not found<br/>in document]
     I --> K[📊 Answer + Sources<br/>+ Confidence Score]
