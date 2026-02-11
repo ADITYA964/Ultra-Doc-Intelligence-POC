@@ -14,7 +14,7 @@ AI-powered RAG system for logistics documents - Upload PDFs/DOCX/DOC/TXT and ask
 | **Guardrails** | "Not found in document" + similarity threshold |
 | **Source Attribution** | Exact chunk references with similarity scores |
 | **Structured Extraction** | JSON shipment data (carrier, rates, dates) |
-| **Production UI** | Gradio (public share link + progress bars) |
+| **Production UI** | Gradio (local host link + progress bars) |
 | **API Endpoints** | `/upload`, `/ask`, `/extract` |
 
 ---
@@ -29,7 +29,7 @@ graph TD
     D --> E[🗄️ ChromaDB Vector Store]
     
     F[💬 Question] --> G[🔍 Similarity Search<br/>Top-5 chunks]
-    G --> H[⚖️ Confidence < 1.0?]
+    G --> H[⚖️ Semantic distance > 1.0?]
     H -->|Yes| I[🤖 LLAMA <br/>RAG Generation]
     H -->|No| J[❌ Not found<br/>in document]
     I --> K[📊 Answer + Sources<br/>+ Confidence Score]
@@ -44,7 +44,7 @@ graph TD
 ### Prerequisites
 
 - Python 3.10+
-- Gemini API Key
+- Ollama software
 
 ### 1. Clone & Setup
 
