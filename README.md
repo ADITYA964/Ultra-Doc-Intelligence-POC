@@ -147,7 +147,7 @@ curl -X POST "http://localhost:8000/extract" \
 | **Chunking** | RecursiveCharacterTextSplitter (800 chars) |
 | **Embeddings** | sentence-transformers/all-mpnet-base-v2 |
 | **Vector Store** | ChromaDB (local persistent) |
-| **LLM** | Gemini 1.5 Flash (Google GenAI SDK) |
+| **LLM** | llama3.2:3b |
 | **API** | FastAPI + Uvicorn |
 | **UI** | Gradio (public share links) |
 
@@ -155,19 +155,19 @@ curl -X POST "http://localhost:8000/extract" \
 
 ## 🔒 Guardrails & Confidence
 
-### Confidence Formula (0.0-1.0)
+### Confidence Formula (0.0-2.0)
 
 ```
 Final Score = Similarity(50%) + Coverage(30%) + Keywords(20%)
 
-Guardrail: If Top-1 similarity < 0.7 → "Not found in document"
+Guardrail: If Top-1 cosine distance > 1.0 → "Not found in document"
 ```
 
 | Score | Status | Action |
 |-------|--------|--------|
-| >0.8 | ✅ High | Trust answer |
-| 0.7-0.8 | 🟡 Medium | Review sources |
-| <0.7 | ❌ Low | "Not found" response |
+| <0.8 | ✅ High | Trust answer |
+| 0.8-1.0 | 🟡 Medium | Review sources |
+| >1.0 | ❌ Low | "Not found" response |
 
 ---
 
@@ -205,35 +205,5 @@ Guardrail: If Top-1 similarity < 0.7 → "Not found in document"
 | No text_splitter | `pip install langchain-text-splitters` |
 | GEMINI_API_KEY | Add to .env or Windows env vars |
 | First run slow | Downloading HF models (~500MB) |
-
----
-
-## 📊 Evaluation Criteria Met
-
-| Criteria | ✅ Status |
-|----------|----------|
-| Retrieval grounding | Chroma similarity search + sources |
-| Extraction accuracy | Structured JSON with nulls |
-| Guardrails | Similarity threshold + "Not found" |
-| Confidence scoring | Multi-factor heuristic |
-| Code structure | Modular FastAPI + typed Pydantic |
-| End-to-end usability | Gradio UI + public link |
-
----
-
----
-
-## 🚀 Deploy to Production
-
-### Dockerfile
-
-```dockerfile
-FROM python:3.11-slim
-COPY . /app
-WORKDIR /app
-RUN pip install -r requirements.txt
-EXPOSE 8000 7860
-CMD ["sh", "-c", "uvicorn app.api.endpoints:app --host 0.0.0.0 --port 8000 & cd ui && python gradio_app.py"]
-```
 
 ---
