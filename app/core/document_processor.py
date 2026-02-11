@@ -40,8 +40,8 @@ class DocumentProcessor:
         # 3. Enhanced Chunking for Logistics
         # We decrease chunk size but use smarter separators to keep key-value pairs together
         text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=500, # Smaller chunks are better for specific field retrieval
-            chunk_overlap=50,
+            chunk_size=100, # Smaller chunks are better for specific field retrieval
+            chunk_overlap=0,
             separators=["\n\n", "\n", "|", ":", ". ", " ", ""],
             keep_separator=True
         )
