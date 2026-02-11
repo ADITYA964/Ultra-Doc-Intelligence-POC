@@ -49,8 +49,8 @@ graph TD
 ### 1. Clone & Setup
 
 ```bash
-git clone <your-repo>
-cd ultra-doc-intelligence
+git clone https://github.com/ADITYA964/Ultra-Doc-Intelligence-POC.git
+cd Ultra-Doc-Intelligence-POC
 pip install -r requirements.txt 
 ```
 
