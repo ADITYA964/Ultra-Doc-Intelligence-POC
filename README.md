@@ -58,7 +58,8 @@ pip install -r requirements.txt
 
 ```bash
 # Create .env file
-echo GEMINI_API_KEY=your_api_key_here > .env
+# No API keys needed (Ollama local)
+OLLAMA_BASE_URL=http://ollama:11434
 ```
 
 ### 3. Run Backend + Frontend
