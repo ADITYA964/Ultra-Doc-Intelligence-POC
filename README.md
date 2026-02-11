@@ -30,8 +30,8 @@ graph TD
     
     F[💬 Question] --> G[🔍 Similarity Search<br/>Top-5 chunks]
     G --> H[⚖️ Semantic distance > 1.0?]
-    H -->|Yes| I[🤖 LLAMA <br/>RAG Generation]
-    H -->|No| J[❌ Not found<br/>in document]
+    H -->|No| I[🤖 LLAMA <br/>RAG Generation]
+    H -->|Yes| J[❌ Not found<br/>in document]
     I --> K[📊 Answer + Sources<br/>+ Confidence Score]
     
     L[📦 Extract Button] --> M[JSON Shipment Data]
