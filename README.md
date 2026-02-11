@@ -57,6 +57,8 @@ pip install -r requirements.txt
 ### 2. Configure API Key
 
 ```bash
+# Visit https://ollama.com/ to install Ollama software locally.
+
 # Create .env file
 # No API keys needed (Ollama local)
 OLLAMA_BASE_URL=http://ollama:11434
