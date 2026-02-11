@@ -37,6 +37,7 @@ async def ask_question(request: AskRequest):
     if not os.getenv("GEMINI_API_KEY"):
         raise HTTPException(500, "GEMINI_API_KEY not configured")
     result = rag.ask(request.question, request.document_id)
+    print(result)
     return AskResponse(**result)
 
 @app.post("/extract", response_model=Dict)
